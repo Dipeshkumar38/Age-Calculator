@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>History</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="history.html">History</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    <section class="history-section animate__animated animate__fadeIn">
+      <h2 class="animate__animated animate__fadeInDown">Calculation History</h2>
+
+      <div class="history-container">
+        <div class="history-icon animate__animated animate__fadeInLeft">
+          <div class="clock">
+            <div class="clock-face">
+              <div class="hand hour-hand"></div>
+              <div class="hand minute-hand"></div>
+              <div class="hand second-hand"></div>
+              <div class="center-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <ul id="historyList" class="animate__animated animate__fadeInRight"></ul>
+
+        <button onclick="clearHistory()" class="clear-history-btn animate__animated animate__fadeIn" style="animation-delay: 0.5s">Clear History</button>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+    }
+
+    function loadHistory() {
+      const history = JSON.parse(localStorage.getItem("history")) || [];
+      const list = document.getElementById("historyList");
+
+      if (history.length === 0) {
+        list.innerHTML = '<li class="empty-history animate__animated animate__fadeIn">No calculations yet</li>';
+      } else {
+        list.innerHTML = history.map((item, index) => `
+          <li class="history-item animate__animated animate__fadeInUp" style="animation-delay: ${index * 0.1}s">
+            <div class="history-date"><strong>${item.dob}</strong></div>
+            <div class="history-result">${item.years}y ${item.months}m ${item.days}d</div>
+            <div class="history-time"><small>${item.time}</small></div>
+          </li>
+        `).join('');
+      }
+    }
+
+    function clearHistory() {
+  localStorage.removeItem("history");
+  document.getElementById("historyList").innerHTML =
+    '<li class="empty-history animate__animated animate__fadeIn">No calculations yet</li>';
+    }
+    
+    function startClock() {
+      setInterval(() => {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+
+        const secondsDegrees = ((seconds / 60) * 360) + 90;
+        const minutesDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90;
+        const hoursDegrees = ((hours / 12) * 360) + ((minutes / 60) * 30) + 90;
+
+        document.querySelector('.second-hand').style.transform = `rotate(${secondsDegrees}deg)`;
+        document.querySelector('.minute-hand').style.transform = `rotate(${minutesDegrees}deg)`;
+        document.querySelector('.hour-hand').style.transform = `rotate(${hoursDegrees}deg)`;
+      }, 1000);
+    }
+
+    // Load history and start clock on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      loadHistory();
+      startClock();
+    });
+  </script>
+</body>
+</html>

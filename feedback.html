@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedback</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="history.html">History</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    <section class="feedback-section animate__animated animate__fadeIn">
+      <h2 class="animate__animated animate__fadeInDown">Send Feedback</h2>
+      
+      <div class="feedback-container">
+        <div class="feedback-illustration animate__animated animate__fadeInLeft">
+          <div class="message-icon">
+            <div class="message-body">
+              <div class="message-line"></div>
+              <div class="message-line"></div>
+              <div class="message-line"></div>
+            </div>
+          </div>
+        </div>
+        
+        <form id="feedbackForm" class="animate__animated animate__fadeInRight">
+          <div class="rating-container animate__animated animate__fadeIn" style="animation-delay: 0.3s">
+            <p>How would you rate your experience?</p>
+            <div class="stars">
+              <span class="star" data-rating="1">★</span>
+              <span class="star" data-rating="2">★</span>
+              <span class="star" data-rating="3">★</span>
+              <span class="star" data-rating="4">★</span>
+              <span class="star" data-rating="5">★</span>
+            </div>
+          </div>
+          
+          <textarea placeholder="Write your feedback..." required class="animate__animated animate__fadeIn" style="animation-delay: 0.4s"></textarea>
+          <button type="submit" class="submit-btn animate__animated animate__fadeIn" style="animation-delay: 0.5s">Submit</button>
+        </form>
+      </div>
+      
+      <div id="thankYouMessage" class="thank-you-message">
+        <div class="checkmark-circle">
+          <div class="checkmark"></div>
+        </div>
+        <p>Thanks for your feedback!</p>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Star rating functionality
+      const stars = document.querySelectorAll('.star');
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const rating = star.getAttribute('data-rating');
+          resetStars();
+          highlightStars(rating);
+        });
+      });
+      
+      function resetStars() {
+        stars.forEach(s => s.classList.remove('active'));
+      }
+      
+      function highlightStars(rating) {
+        stars.forEach(s => {
+          if (s.getAttribute('data-rating') <= rating) {
+            s.classList.add('active');
+          }
+        });
+      }
+      
+      // Form submission
+      const form = document.getElementById('feedbackForm');
+      const thankYouMessage = document.getElementById('thankYouMessage');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.classList.add('animate__animated', 'animate__fadeOutUp');
+        
+        setTimeout(() => {
+          form.style.display = 'none';
+          thankYouMessage.style.display = 'flex';
+          thankYouMessage.classList.add('animate__animated', 'animate__fadeIn');
+          
+          // Reset form after 3 seconds
+          setTimeout(() => {
+            thankYouMessage.classList.remove('animate__fadeIn');
+            thankYouMessage.classList.add('animate__fadeOut');
+            
+            setTimeout(() => {
+              form.reset();
+              resetStars();
+              thankYouMessage.style.display = 'none';
+              form.classList.remove('animate__fadeOutUp');
+              form.style.display = 'block';
+              form.classList.add('animate__fadeIn');
+            }, 500);
+          }, 3000);
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>
+

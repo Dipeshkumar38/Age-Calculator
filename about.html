@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="history.html">History</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    <section class="about-section animate__animated animate__fadeIn">
+      <h2 class="animate__animated animate__fadeInDown">About This Project</h2>
+      
+      <div class="about-container">
+        <div class="about-illustration animate__animated animate__fadeInLeft">
+          <div class="features-icon">
+            <div class="gear">
+              <div class="gear-inner"></div>
+              <div class="gear-tooth"></div>
+              <div class="gear-tooth"></div>
+              <div class="gear-tooth"></div>
+              <div class="gear-tooth"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-content animate__animated animate__fadeInRight">
+          <p>This age calculator helps users calculate their current age and find out how many days remain until their next birthday.</p>
+          
+          <h3 class="animate__animated animate__fadeIn" style="animation-delay: 0.3s">Features:</h3>
+          <ul class="features-list">
+            <li class="animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+              <span class="feature-icon">✨</span>
+              <span class="feature-text">Animated age display</span>
+            </li>
+            <li class="animate__animated animate__fadeInUp" style="animation-delay: 0.5s">
+              <span class="feature-icon">🌓</span>
+              <span class="feature-text">Theme switcher</span>
+            </li>
+            <li class="animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+              <span class="feature-icon">📱</span>
+              <span class="feature-text">Responsive design</span>
+            </li>
+            <li class="animate__animated animate__fadeInUp" style="animation-delay: 0.7s">
+              <span class="feature-icon">🎂</span>
+              <span class="feature-text">Birthday countdown</span>
+            </li>
+            <li class="animate__animated animate__fadeInUp" style="animation-delay: 0.8s">
+              <span class="feature-icon">📊</span>
+              <span class="feature-text">History logging</span>
+            </li>
+          </ul>
+          
+          <div class="version-info animate__animated animate__fadeIn" style="animation-delay: 0.9s">
+            <p>Version: 1.0.0</p>
+            <p>Last Updated: April 2025</p>
+          </div>
+
+          <div class="builder-info animate__animated animate__fadeIn" style="animation-delay: 1s">
+            <h3>About the Builder</h3>
+            <p>This project was built by a passionate developer who enjoys creating interactive, user-friendly tools to solve everyday problems.</p>
+             Optional: Add personal details
+            <p>Created by: Adesh Tiwari</p>
+            <p>GitHub: <a href="https://github.com/your-profile" target="_blank">your-profile</a></p> 
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Animate the gear
+      setInterval(() => {
+        const gear = document.querySelector('.gear');
+        let currentRotation = 0;
+        
+        if (gear.style.transform) {
+          const match = gear.style.transform.match(/rotate\((\d+)deg\)/);
+          if (match) {
+            currentRotation = parseInt(match[1], 10);
+          }
+        }
+        
+        gear.style.transform = `rotate(${currentRotation + 1}deg)`;
+      }, 50);
+    });
+  </script>
+</body>
+</html>
